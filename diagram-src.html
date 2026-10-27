@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Microsoft YaHei","Noto Sans CJK SC",sans-serif;background:#fff;padding:32px;width:1200px}
+h1{text-align:center;font-size:22px;color:#1a1a1a;margin-bottom:6px}
+.sub{text-align:center;font-size:13px;color:#888;margin-bottom:24px}
+.row{display:flex;justify-content:center;gap:24px;margin-bottom:0}
+.box{border:2px solid #2563eb;border-radius:10px;padding:14px 18px;text-align:center;background:#f0f6ff;min-width:180px}
+.box .t{font-size:15px;font-weight:bold;color:#1e3a8a}
+.box .d{font-size:12px;color:#475569;margin-top:4px;line-height:1.5}
+.box.green{border-color:#059669;background:#ecfdf5}
+.box.green .t{color:#065f46}
+.box.orange{border-color:#d97706;background:#fffbeb}
+.box.orange .t{color:#92400e}
+.box.gray{border-color:#64748b;background:#f8fafc}
+.box.gray .t{color:#334155}
+.arrow-row{display:flex;justify-content:center;align-items:center;height:56px}
+.arrow{font-size:22px;color:#64748b;letter-spacing:2px}
+.col{display:flex;flex-direction:column;gap:0;align-items:center}
+.layer-label{font-size:11px;color:#94a3b8;margin:10px 0 4px;text-transform:uppercase;letter-spacing:1px}
+.legend{margin-top:22px;text-align:center;font-size:11px;color:#94a3b8}
+</style>
+</head>
+<body>
+<h1>2048 经典益智小游戏 — 架构图</h1>
+<div class="sub">纯单文件 HTML 实现 · 零依赖 · 静态托管</div>
+
+<div class="layer-label">访问层</div>
+<div class="row">
+  <div class="box gray"><div class="t">PC 浏览器</div><div class="d">方向键 / WASD / Z 撤销</div></div>
+  <div class="box gray"><div class="t">移动端浏览器</div><div class="d">触屏滑动（touch 事件）</div></div>
+</div>
+
+<div class="arrow-row"><span class="arrow">|</span><span class="arrow">|</span>&nbsp;&nbsp;HTTP&nbsp;&nbsp;<span class="arrow">|</span><span class="arrow">|</span></div>
+
+<div class="layer-label">托管层</div>
+<div class="row">
+  <div class="box green"><div class="t">Nginx 静态托管</div><div class="d">华为云 ECS（Rocky Linux）<br>/usr/share/nginx/html/hc-activity/</div></div>
+</div>
+
+<div class="arrow-row"><span class="arrow">|</span>&nbsp;&nbsp;返回单文件&nbsp;&nbsp;<span class="arrow">|</span></div>
+
+<div class="layer-label">应用层（index.html · 9817 字节）</div>
+<div class="row">
+  <div class="box"><div class="t">棋盘模型</div><div class="d">4×4 二维数组<br>随机块生成（90% 出 2）</div></div>
+  <div class="box"><div class="t">滑动合并算法</div><div class="d">行压缩 + 相邻合并<br>四方向统一变换</div></div>
+  <div class="box"><div class="t">视图渲染</div><div class="d">绝对定位方块<br>CSS transition 动画</div></div>
+  <div class="box"><div class="t">状态持久</div><div class="d">最高分 localStorage<br>10 步撤销栈</div></div>
+</div>
+
+<div class="arrow-row"><span class="arrow">|</span>&nbsp;&nbsp;胜负判定与计分&nbsp;&nbsp;<span class="arrow">|</span></div>
+
+<div class="layer-label">用户交互</div>
+<div class="row">
+  <div class="box orange"><div class="t">游戏结束判定</div><div class="d">棋盘满且无可合并块</div></div>
+  <div class="box orange"><div class="t">2048 胜利提示</div><div class="d">可继续挑战更高分</div></div>
+</div>
+
+<div class="legend">部署链：AI Agent（CodeArts + DevKit）生成代码 → DevBridge 隧道预览 / ECS 持久化托管 → 公网访问</div>
+</body>
+</html>
